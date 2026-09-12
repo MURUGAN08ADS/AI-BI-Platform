@@ -1,0 +1,282 @@
+/* ============================================================
+   Ledger — visual identity
+
+   The subject is a company's books. The reference is an accountant's
+   ledger: ruled paper, ink, hairline rules, and figures set in a
+   monospaced face so every column aligns to the decimal point.
+
+   Palette   paper #FBFAF7 · ink #14181F · rule #E3E0D8
+             indigo #2B3A8F (structure) · ochre #B4762A (the one accent)
+             gain #1F6F4A · loss #A32B2B
+   Type      Fraunces (display, used sparingly) · Inter (UI)
+             IBM Plex Mono (every number, always)
+   Signature Figures are ALWAYS monospaced and right-aligned, and each
+             KPI sits on a ruled line. The interface reads as a ledger,
+             not a SaaS dashboard.
+   ============================================================ */
+
+:root {
+  --paper: #fbfaf7;
+  --paper-2: #f4f2ec;
+  --card: #ffffff;
+  --ink: #14181f;
+  --ink-soft: #5c6472;
+  --rule: #e3e0d8;
+  --indigo: #2b3a8f;
+  --indigo-soft: #eceef8;
+  --ochre: #b4762a;
+  --gain: #1f6f4a;
+  --loss: #a32b2b;
+
+  --display: "Fraunces", Georgia, serif;
+  --ui: "Inter", -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* every figure in the product is monospaced — the signature device */
+.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ---------------- shell ---------------- */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 232px; flex-shrink: 0;
+  background: var(--paper-2);
+  border-right: 1px solid var(--rule);
+  padding: 22px 0;
+  display: flex; flex-direction: column;
+}
+.brand { padding: 0 22px 20px; border-bottom: 1px solid var(--rule); }
+.brand h1 {
+  font-family: var(--display); font-size: 25px; font-weight: 700;
+  margin: 0; letter-spacing: -0.02em;
+}
+.brand span {
+  display: block; font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-soft); margin-top: 3px;
+}
+.nav { padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+.nav a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 5px;
+  color: var(--ink-soft); text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: background .12s, color .12s;
+}
+.nav a:hover { background: #eae7df; color: var(--ink); }
+.nav a.active { background: var(--indigo); color: #fff; }
+.nav a .k {
+  font-family: var(--mono); font-size: 10px; opacity: .55; margin-left: auto;
+}
+.sidebar-foot {
+  margin-top: auto; padding: 14px 22px 0; border-top: 1px solid var(--rule);
+  font-size: 12px; color: var(--ink-soft);
+}
+.sidebar-foot b { display: block; color: var(--ink); font-size: 13px; }
+.sidebar-foot button {
+  margin-top: 8px; background: none; border: none; padding: 0;
+  color: var(--indigo); font: inherit; font-size: 12px; cursor: pointer;
+  text-decoration: underline;
+}
+
+.main { flex: 1; min-width: 0; overflow-x: hidden; }
+.topbar {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 24px 32px 16px; border-bottom: 1px solid var(--rule);
+}
+.topbar h2 {
+  font-family: var(--display); font-size: 27px; font-weight: 700;
+  margin: 0; letter-spacing: -0.02em;
+}
+.topbar p { margin: 0; color: var(--ink-soft); font-size: 13.5px; }
+.content { padding: 26px 32px 60px; max-width: 1240px; }
+
+/* ---------------- KPI ledger strip ---------------- */
+.ledger {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 4px;
+  overflow: hidden;
+}
+.ledger-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--rule);
+}
+.ledger-row:last-child { border-bottom: none; }
+.kpi {
+  padding: 16px 20px; border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; gap: 3px;
+}
+.kpi:last-child { border-right: none; }
+.kpi .label {
+  font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.kpi .value { font-size: 25px; font-weight: 600; }
+.kpi .delta { font-size: 12.5px; }
+.up { color: var(--gain); } .down { color: var(--loss); }
+
+/* ---------------- cards & grid ---------------- */
+.grid { display: grid; gap: 18px; margin-top: 20px; }
+.grid.two { grid-template-columns: 1fr 1fr; }
+.card {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 4px;
+  padding: 18px 20px;
+}
+.card h3 {
+  font-size: 13px; font-weight: 600; margin: 0 0 14px;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft);
+  padding-bottom: 9px; border-bottom: 1px solid var(--rule);
+}
+.chart-box { height: 260px; }
+
+/* ---------------- tables ---------------- */
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th {
+  text-align: left; font-size: 10.5px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-soft); font-weight: 600;
+  padding: 7px 8px; border-bottom: 1px solid var(--rule);
+}
+td { padding: 8px; border-bottom: 1px solid var(--paper-2); }
+tr:last-child td { border-bottom: none; }
+td.r, th.r { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* ---------------- insights ---------------- */
+.insight {
+  display: flex; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--paper-2);
+}
+.insight:last-child { border-bottom: none; }
+.insight .tick { width: 3px; border-radius: 2px; flex-shrink: 0; }
+.insight.positive .tick { background: var(--gain); }
+.insight.negative .tick { background: var(--loss); }
+.insight.warning  .tick { background: var(--ochre); }
+.insight.neutral  .tick { background: var(--ink-soft); }
+.insight b { display: block; font-size: 13.5px; margin-bottom: 2px; }
+.insight p { margin: 0; font-size: 13px; color: var(--ink-soft); }
+
+/* ---------------- forms & buttons ---------------- */
+label { display: block; font-size: 12.5px; font-weight: 500; margin-bottom: 5px; }
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+  width: 100%; padding: 9px 11px; border: 1px solid var(--rule); border-radius: 4px;
+  background: #fff; font: inherit; font-size: 14px; color: var(--ink);
+}
+input:focus, select:focus, button:focus-visible {
+  outline: 2px solid var(--indigo); outline-offset: 1px; border-color: var(--indigo);
+}
+button.primary {
+  background: var(--indigo); color: #fff; border: none; border-radius: 4px;
+  padding: 10px 18px; font: inherit; font-weight: 600; font-size: 14px; cursor: pointer;
+}
+button.primary:disabled { opacity: .45; cursor: default; }
+button.ghost {
+  background: #fff; border: 1px solid var(--rule); border-radius: 4px;
+  padding: 9px 15px; font: inherit; font-size: 14px; cursor: pointer; color: var(--ink);
+}
+
+/* ---------------- upload ---------------- */
+.drop {
+  border: 1.5px dashed var(--rule); border-radius: 5px; background: var(--card);
+  padding: 46px 24px; text-align: center; cursor: pointer; transition: border-color .15s;
+}
+.drop:hover, .drop.over { border-color: var(--indigo); }
+.drop b { font-size: 15px; }
+.drop p { margin: 6px 0 0; color: var(--ink-soft); font-size: 13px; }
+
+/* ---------------- chat ---------------- */
+.chat-log { display: flex; flex-direction: column; gap: 16px; min-height: 320px; }
+.msg { max-width: 74%; }
+.msg.user { align-self: flex-end; }
+.msg .bubble {
+  padding: 11px 14px; border-radius: 5px; font-size: 14px;
+  border: 1px solid var(--rule); background: var(--card);
+}
+.msg.user .bubble { background: var(--indigo); color: #fff; border-color: var(--indigo); }
+.msg .who {
+  font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 4px;
+}
+.msg.user .who { text-align: right; }
+details.sql { margin-top: 8px; }
+details.sql summary {
+  cursor: pointer; font-size: 11.5px; color: var(--indigo);
+  letter-spacing: .05em; text-transform: uppercase;
+}
+details.sql pre {
+  margin: 7px 0 0; padding: 11px; background: #14181f; color: #e8e6e0;
+  border-radius: 4px; font-family: var(--mono); font-size: 12px;
+  overflow-x: auto; white-space: pre-wrap;
+}
+.blocked {
+  border-left: 3px solid var(--loss); background: #fdf3f3;
+  padding: 9px 12px; font-size: 13px; margin-top: 8px; border-radius: 3px;
+}
+.chat-form { display: flex; gap: 9px; margin-top: 18px; }
+.chat-form input { flex: 1; }
+.suggestions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.suggestions button {
+  background: var(--indigo-soft); border: none; color: var(--indigo);
+  padding: 6px 11px; border-radius: 20px; font: inherit; font-size: 12.5px; cursor: pointer;
+}
+
+/* ---------------- misc ---------------- */
+.note { color: var(--ink-soft); font-size: 13.5px; }
+.error {
+  border-left: 3px solid var(--loss); background: #fdf3f3; color: var(--loss);
+  padding: 10px 13px; font-size: 13.5px; border-radius: 3px; margin-top: 14px;
+}
+.ok {
+  border-left: 3px solid var(--gain); background: #f1f8f4; color: var(--gain);
+  padding: 10px 13px; font-size: 13.5px; border-radius: 3px; margin-top: 14px;
+}
+.pill {
+  font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 20px;
+  background: var(--paper-2); color: var(--ink-soft);
+}
+.pill.success { background: #e9f4ee; color: var(--gain); }
+.pill.failed  { background: #fbeaea; color: var(--loss); }
+.spinner { display: inline-block; animation: pulse 1.1s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: .35 } 50% { opacity: 1 } }
+
+/* auth screen */
+.auth-wrap {
+  min-height: 100vh; display: grid; place-items: center; padding: 20px;
+  background: var(--paper-2);
+}
+.auth-card {
+  width: 100%; max-width: 380px; background: var(--card);
+  border: 1px solid var(--rule); border-radius: 5px; padding: 30px;
+}
+.auth-card h1 { font-family: var(--display); font-size: 28px; margin: 0 0 4px; }
+.auth-card .sub { color: var(--ink-soft); font-size: 13.5px; margin: 0 0 22px; }
+.auth-card .field { margin-bottom: 14px; }
+.auth-card .swap { margin-top: 16px; font-size: 13px; color: var(--ink-soft); text-align: center; }
+.auth-card .swap button {
+  background: none; border: none; color: var(--indigo); font: inherit;
+  cursor: pointer; text-decoration: underline; padding: 0;
+}
+
+@media (max-width: 900px) {
+  .shell { flex-direction: column; }
+  .sidebar { width: 100%; }
+  .nav { flex-direction: row; overflow-x: auto; }
+  .grid.two { grid-template-columns: 1fr; }
+  .ledger-row { grid-template-columns: 1fr 1fr; }
+  .content, .topbar { padding-left: 18px; padding-right: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

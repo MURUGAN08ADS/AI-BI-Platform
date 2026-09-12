@@ -1,0 +1,14 @@
+fastapi==0.115.*
+uvicorn[standard]==0.32.*
+python-multipart
+sqlalchemy==2.0.*
+psycopg2-binary
+pandas
+openpyxl
+pydantic==2.*
+pydantic-settings
+python-jose[cryptography]
+passlib[bcrypt]
+scikit-learn
+numpy
+httpx

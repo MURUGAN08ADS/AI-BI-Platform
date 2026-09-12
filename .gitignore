@@ -1,0 +1,18 @@
+# Local environment and secrets
+.env
+**/.env
+
+# Python virtual environments and caches
+venv/
+**/venv/
+__pycache__/
+*.py[cod]
+
+# JavaScript dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+
+# Local application data
+uploads/
+.DS_Store
