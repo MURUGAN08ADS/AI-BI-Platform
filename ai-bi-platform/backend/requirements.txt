@@ -12,3 +12,4 @@ passlib[bcrypt]
 scikit-learn
 numpy
 httpx
+email-validator
