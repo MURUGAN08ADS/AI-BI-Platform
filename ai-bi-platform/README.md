@@ -10,6 +10,29 @@ questions answered by an LLM that writes its own SQL, and revenue forecasting.
 
 ## Run it
 
+### Deploy on Render
+
+This repository includes a `render.yaml` Blueprint for a managed PostgreSQL
+database, FastAPI backend, and React static site.
+
+1. Push the repository to GitHub or GitLab.
+2. In Render, choose **New > Blueprint**, connect the repository, and select
+   the repository root (`ai-bi-platform` if this folder is inside a larger repo).
+3. Review the services and create the Blueprint. The database plan must be
+   available on your Render account; upgrade it if Render does not offer a
+   free PostgreSQL database for your account.
+4. After Render creates the services, open the backend service and set
+   `FRONTEND_URL` to the exact frontend URL, for example
+   `https://bi-frontend.onrender.com`.
+5. Open the frontend service and set `VITE_API_URL` to the backend API URL with
+   the `/api` suffix, for example `https://bi-backend.onrender.com/api`, then
+   redeploy the frontend.
+6. Set `GROQ_API_KEY` on the backend if chatbot queries are needed. Never commit
+   `.env` or paste secrets into `render.yaml`.
+
+The backend creates the application tables on first startup. Upload a dataset
+after the backend health check at `/api/health` reports `{"status":"ok"}`.
+
 ### Docker (everything at once)
 
 ```bash
